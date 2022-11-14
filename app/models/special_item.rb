@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class SpecialItem < ApplicationRecord
+  # == Associations ===============================================
+  belongs_to :item, inverse_of: :special_items
+  belongs_to :special, inverse_of: :special_items
+
+  # == Methods ====================================================
 end
 
 # == Schema Information

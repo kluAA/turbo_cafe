@@ -66,7 +66,7 @@ Layout/HashAlignment:
     - table
 
 Layout/LineLength:
-  Max: 150
+  Max: 250
   AllowedPatterns:
     - !ruby/regexp /\A +(it|describe|context|shared_examples|include_examples|it_behaves_like) ["']/
 

@@ -16,9 +16,8 @@ end
 #  price_cents    :integer          default(0), not null
 #  price_currency :string           default("USD"), not null
 #  slug           :string           not null, indexed
-#  tax_cents      :integer          default(0), not null
-#  tax_currency   :string           default("USD"), not null
-#  taxable        :boolean
+#  tax_rate       :decimal(5, 5)
+#  taxable        :boolean          default(TRUE), not null, indexed
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  category_id    :bigint           indexed
@@ -27,6 +26,7 @@ end
 #
 #  index_specials_on_category_id  (category_id)
 #  index_specials_on_slug         (slug) UNIQUE
+#  index_specials_on_taxable      (taxable)
 #
 # Foreign Keys
 #

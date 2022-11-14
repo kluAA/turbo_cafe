@@ -1,6 +1,23 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
+  # == Callbacks ====================================================
+  after_initialize :set_slug
+
+  # == Validations ==================================================
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
+  monetize :subtotal_cents, numericality: { greater_than_or_equal_to: 0 }
+  monetize :tax_amount_cents, numericality: { greater_than_or_equal_to: 0 }
+  monetize :total_cents, numericality: { greater_than_or_equal_to: 0 }
+
+  # == Methods =======================================================
+  private
+
+  def set_status_tracking_slug
+    self.status_tracking_slug = SecureRandom.urlsafe_base64
+  end
 end
 
 # == Schema Information

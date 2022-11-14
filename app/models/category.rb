@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
+  validates :name, presence: true
+
+  has_many :items, inverse_of: :category
+  has_many :specials, inverse_of: :category
 end
 
 # == Schema Information

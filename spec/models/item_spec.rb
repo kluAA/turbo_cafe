@@ -16,9 +16,8 @@ end
 #  price_cents    :integer          default(0), not null
 #  price_currency :string           default("USD"), not null
 #  slug           :string           not null, indexed
-#  tax_cents      :integer          default(0), not null
-#  tax_currency   :string           default("USD"), not null
-#  taxable        :boolean          indexed
+#  tax_rate       :decimal(5, 5)
+#  taxable        :boolean          default(TRUE), not null, indexed
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  category_id    :bigint           indexed

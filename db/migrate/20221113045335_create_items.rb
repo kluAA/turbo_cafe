@@ -7,8 +7,8 @@ class CreateItems < ActiveRecord::Migration[7.0]
       t.string :slug, null: false
       t.text :description
       t.monetize :price
-      t.monetize :tax
-      t.boolean :taxable, index: true
+      t.decimal :tax_rate, precision: 5, scale: 5
+      t.boolean :taxable, index: true, default: true, null: false
 
       t.index :slug, unique: true
       t.references :category, foreign_key: true

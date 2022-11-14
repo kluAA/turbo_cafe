@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_13_222115) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_13_233238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,15 +27,32 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_222115) do
     t.text "description"
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
-    t.integer "tax_cents", default: 0, null: false
-    t.string "tax_currency", default: "USD", null: false
-    t.boolean "taxable"
+    t.decimal "tax_rate", precision: 5, scale: 5
+    t.boolean "taxable", default: true, null: false
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["slug"], name: "index_items_on_slug", unique: true
     t.index ["taxable"], name: "index_items_on_taxable"
+  end
+
+  create_table "order_entries", force: :cascade do |t|
+    t.integer "quantity", null: false
+    t.integer "subtotal_cents", default: 0, null: false
+    t.string "subtotal_currency", default: "USD", null: false
+    t.integer "tax_amount_cents", default: 0, null: false
+    t.string "tax_amount_currency", default: "USD", null: false
+    t.integer "total_cents", default: 0, null: false
+    t.string "total_currency", default: "USD", null: false
+    t.bigint "order_id"
+    t.bigint "item_id"
+    t.bigint "special_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_order_entries_on_item_id"
+    t.index ["order_id"], name: "index_order_entries_on_order_id"
+    t.index ["special_id"], name: "index_order_entries_on_special_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -70,17 +87,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_222115) do
     t.string "description"
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
-    t.integer "tax_cents", default: 0, null: false
-    t.string "tax_currency", default: "USD", null: false
-    t.boolean "taxable"
+    t.decimal "tax_rate", precision: 5, scale: 5
+    t.boolean "taxable", default: true, null: false
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_specials_on_category_id"
     t.index ["slug"], name: "index_specials_on_slug", unique: true
+    t.index ["taxable"], name: "index_specials_on_taxable"
   end
 
   add_foreign_key "items", "categories"
+  add_foreign_key "order_entries", "items"
+  add_foreign_key "order_entries", "orders"
+  add_foreign_key "order_entries", "specials"
   add_foreign_key "special_items", "items"
   add_foreign_key "special_items", "specials"
   add_foreign_key "specials", "categories"

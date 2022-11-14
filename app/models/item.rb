@@ -1,6 +1,25 @@
 # frozen_string_literal: true
 
 class Item < ApplicationRecord
+  # == Callbacks ==================================================
+  before_validation { set_slug if name.present? && slug.nil? }
+
+  # == Validations ================================================
+  validates :name, presence: true
+  validates :slug, presence: true, uniqueness: true
+  monetize :price_cents, numericality: { greater_than_or_equal_to: 0 }
+
+  # == Associations ===============================================
+  belongs_to :category, inverse_of: :items
+
+  has_many :special_items, inverse_of: :item
+
+  # == Methods ====================================================
+  private
+
+  def set_slug
+    self.slug = name.downcase.tr(' ', '_')
+  end
 end
 
 # == Schema Information
@@ -13,9 +32,8 @@ end
 #  price_cents    :integer          default(0), not null
 #  price_currency :string           default("USD"), not null
 #  slug           :string           not null, indexed
-#  tax_cents      :integer          default(0), not null
-#  tax_currency   :string           default("USD"), not null
-#  taxable        :boolean          indexed
+#  tax_rate       :decimal(5, 5)
+#  taxable        :boolean          default(TRUE), not null, indexed
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  category_id    :bigint           indexed
