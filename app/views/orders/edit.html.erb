@@ -1,0 +1,18 @@
+<div class="flex flex-row justify-center mt-12">
+  <div class="flex flex-col gap-4 px-4 md:w-[600px]">
+    <h1 class="text-sky-300 text-2xl font-semibold underline">Drinks</h1>
+    <%= render 'items', items: @drinks, order: @order %>
+    <h1 class="text-sky-300 text-2xl font-semibold underline">Sandwiches</h1>
+    <%= render 'items', items: @sandwiches, order: @order %>
+    <h1 class="text-sky-300 text-2xl font-semibold underline">Desserts</h1>
+    <%= render 'items', items: @desserts, order: @order %>
+  </div>
+  <div class="md:w-[500px] text-white">
+    <div id="order_entries">
+      <% @order_entries.each do |order_entry| %>
+        <%= render 'order_entry', order_entry: order_entry %>
+      <% end %>
+    </div>
+    <%= render 'pricing', pricing: @pricing_struct %>
+  </div>
+</div>

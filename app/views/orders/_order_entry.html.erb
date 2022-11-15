@@ -1,0 +1,9 @@
+<%= turbo_frame_tag order_entry do%>
+  <div class="flex flex-row items-baseline">
+    <p>
+      <span><%= order_entry.quantity%>x</span>
+      <span><%= order_entry.item.name %>
+    </p>
+    <%= button_to '-', order_entry_path(id: order_entry.id, order_id: order_entry.order_id), method: :delete, class: 'text-white text-sm px-2 ml-2 bg-red-700 rounded-sm' %>
+  </div>
+<% end %>

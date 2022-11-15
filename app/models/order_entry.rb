@@ -7,9 +7,9 @@ class OrderEntry < ApplicationRecord
   monetize :tax_amount_cents, numericality: { greater_than_or_equal_to: 0 }
   monetize :total_cents, numericality: { greater_than_or_equal_to: 0 }
 
-  belongs_to :order, inverse_of: :order_entry
-  belongs_to :special, inverse_of: :order_entry
-  belongs_to :item, inverse_of: :order_entry
+  belongs_to :order, inverse_of: :order_entries
+  belongs_to :special, inverse_of: :order_entry, optional: true
+  belongs_to :item, optional: true
 end
 
 # == Schema Information

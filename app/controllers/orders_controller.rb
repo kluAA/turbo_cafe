@@ -8,11 +8,20 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(create_params)
     if @order.save
-      redirect_to edit_order_path(slug: @order.status_tracking_slug)
+      redirect_to edit_order_path(status_tracking_slug: @order.status_tracking_slug)
     else
       flash.now[:alert] = @order.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def edit
+    @order = current_order
+    @order_entries = current_order.order_entries.includes(:item)
+    @drinks = Item.includes(:category).where(category: { name: 'drinks' })
+    @sandwiches = Item.includes(:category).where(category: { name: 'sandwiches' })
+    @desserts = Item.includes(:category).where(category: { name: 'desserts' })
+    @pricing_struct = ::Orders::CalculatePriceService.new(order: @order).call
   end
 
   private
@@ -22,6 +31,6 @@ class OrdersController < ApplicationController
   end
 
   def current_order
-    @current_order ||= Order.find_by(status_tracking_slug: params[:status_tracking_slug])
+    @current_order ||= Order.find_by!(status_tracking_slug: params[:status_tracking_slug])
   end
 end

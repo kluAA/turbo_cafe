@@ -12,6 +12,8 @@ class Order < ApplicationRecord
   monetize :tax_amount_cents, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
   monetize :total_cents, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
+  has_many :order_entries, inverse_of: :order
+
   # == Methods =======================================================
   private
 
