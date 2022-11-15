@@ -8,11 +8,11 @@
     <%= render 'items', items: @desserts, order: @order %>
   </div>
   <div class="md:w-[500px] text-white">
+    <%= render 'pricing', pricing: @pricing_struct %>
     <div id="order_entries">
       <% @order_entries.each do |order_entry| %>
         <%= render 'order_entry', order_entry: order_entry %>
       <% end %>
     </div>
-    <%= render 'pricing', pricing: @pricing_struct %>
   </div>
 </div>

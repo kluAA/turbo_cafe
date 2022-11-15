@@ -1,5 +1,14 @@
-<div id="pricing">
-  <p>Subtotal: $<%= pricing.subtotal %></p>
-  <p>Tax: $<%= pricing.tax_amount %></p>
-  <p>Total: $<%= pricing.total %></p>
+<div id="pricing" class="mb-4">
+  <p>
+    <span class="font-bold">Subtotal:&nbsp;</span>
+    <span>$<%= pricing.subtotal %></span>
+  </p>
+  <p>
+    <span class="font-bold">Tax:&nbsp;</span>
+    <span>$<%= pricing.tax_amount %></span>
+  </p>
+  <p class="font-bold text-green-400">
+    <span>Total:&nbsp;</span>
+    <span>$<%= pricing.total %></span>
+  </p>
 </div>
