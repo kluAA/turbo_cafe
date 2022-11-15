@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  root to: 'orders#new'
+
   resources :orders, only: %i[new create edit], param: :status_tracking_slug
 
   resources :order_entries, only: %i[create destroy]
