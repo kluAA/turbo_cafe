@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html class="h-screen">
   <head>
     <title>TurboCafe</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "general", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <nav class="bg-gray-700 h-16 px-4 flex items-center">
-      <p class="text-white font-bold italic text-xl">Turbo Cafe</p>
+  <body class="h-screen bg-zinc-900">
+    <nav class="h-16 px-4 flex items-center">
+      <p class="text-white font-bold italic text-2xl">Turbo Cafe</p>
     </nav>
+    <% flash.each do |type, msg| %>
+      <p class="text-xl text-white bg-red-700 text-center">
+        <%= msg %>
+      </p>
+    <% end %>
     <%= yield %>
   </body>
 </html>

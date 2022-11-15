@@ -2,15 +2,15 @@
 
 class Order < ApplicationRecord
   # == Callbacks ====================================================
-  after_initialize :set_slug
+  after_initialize :set_status_tracking_slug
 
   # == Validations ==================================================
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-  monetize :subtotal_cents, numericality: { greater_than_or_equal_to: 0 }
-  monetize :tax_amount_cents, numericality: { greater_than_or_equal_to: 0 }
-  monetize :total_cents, numericality: { greater_than_or_equal_to: 0 }
+  monetize :subtotal_cents, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+  monetize :tax_amount_cents, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+  monetize :total_cents, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
   # == Methods =======================================================
   private
