@@ -48,7 +48,7 @@ Layout/ClassStructure:
   Enabled: true
 
 Layout/RedundantLineBreak:
-  Enabled: true
+  Enabled: false
 
 Layout/TrailingWhitespace:
   AllowInHeredoc: false

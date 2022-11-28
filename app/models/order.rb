@@ -1,20 +1,32 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
+  include Turbo::Broadcastable
   # == Callbacks ====================================================
-  after_initialize :set_status_tracking_slug
+  before_create :set_status_tracking_slug
+  after_update_commit -> { broadcast_replace_later_to 'orders', partial: 'orders/current_status', locals: { order: self } }
 
   # == Validations ==================================================
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :status, inclusion: { in: ::Orders::Statuses::ALL_STATUSES }
 
   monetize :subtotal_cents, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
   monetize :tax_amount_cents, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
   monetize :total_cents, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
+  # == Associations ==================================================
   has_many :order_entries, inverse_of: :order
 
   # == Methods =======================================================
+  def new?
+    status == ::Orders::Statuses::NEW
+  end
+
+  def pretty_status
+    ::Orders::Statuses::PRETTY_STATUS[status]
+  end
+
   private
 
   def set_status_tracking_slug

@@ -1,0 +1,9 @@
+<%= turbo_stream_from "orders" %>
+<div class="flex flex-col items-center mt-12">
+  <div class="text-green-400 text-2xl text-center">
+    <p>
+      Thank you! Your order is #<%= @order.id %>.
+    </p>
+    <%= render 'current_status', order: @order %>
+  </div>
+</div>

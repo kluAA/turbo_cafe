@@ -16,5 +16,12 @@
         <%= render 'order_entry', order_entry: order_entry %>
       <% end %>
     </div>
+    <div class="mt-2">
+      <%= button_to 'Confirm Order',
+                    finalize_order_path(status_tracking_slug: @order.status_tracking_slug),
+                    method: :post,
+                    class: 'p-2 bg-green-600 rounded-sm hover:opacity-70',
+                    form: { data: { confirm: 'This will finalize your order. Are you sure?'} } %>
+    </div>
   </div>
 </div>
