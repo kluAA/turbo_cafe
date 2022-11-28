@@ -15,4 +15,8 @@ Rails.application.routes.draw do
   end
 
   resources :order_entries, only: %i[create destroy]
+
+  namespace :admin do
+    resources :orders, only: %i[index show]
+  end
 end

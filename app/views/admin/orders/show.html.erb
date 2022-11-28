@@ -1,0 +1,12 @@
+<div class="flex flex-col items-center w-full">
+  <div class="text-slate-200 mt-8 text-center">
+    <h1 class="text-xl font-bold">Order #<%= @order.id %></h1>
+    <h2 class="text-lg underline mt-4">Order Entries</h2>
+    <ul class="list-disc text-left mt-2">
+      <% @order_entries.each do |order_entry| %>
+        <li><%= order_entry.quantity %>x <%= order_entry.name %></li>
+      <% end %>
+    </ul>
+  </div>
+  <%= link_to 'Back to Orders Index', admin_orders_path, class: 'mt-4 text-sky-400 hover:text-sky-500 italic'%>
+</div>

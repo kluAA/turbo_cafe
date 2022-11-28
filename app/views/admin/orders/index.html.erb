@@ -1,0 +1,23 @@
+<%= turbo_stream_from "orders" %>
+<div class="flex flex-col items-center w-full">
+  <table class="table-auto text-slate-200 w-3/4 mt-8">
+    <thead>
+      <tr class="border-b text-lg">
+        <th>ID</th>
+        <th>Created At</th>
+        <th>Status</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody id="admin_orders_table">
+      <% @orders.each do |order| %>
+        <%= render 'order_row', order: order %>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="mt-4">
+    <%= paginate @orders, class: 'text-slate-200' %>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<tr id="admin_<%= dom_id(order) %>_row" class="text-center odd:text-sky-400 even:text-green-400 hover:bg-slate-700">
+  <td class="hover:underline">
+    <%= link_to admin_order_path(order) do %>
+      #<%= order.id %>
+    <% end%>
+  </td>
+  <td><%= order.created_at.strftime('%m/%d/%Y') %></td>
+  <td><%= order.status %></td>
+  <td><%= order.first_name %></td>
+  <td><%= order.last_name %></td>
+  <% if order.total.present? %>
+    <td>$<%= order.total %></td>
+  <% else %>
+    <td>N/A</td>
+  <% end %>
+</tr>

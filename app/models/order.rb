@@ -4,7 +4,16 @@ class Order < ApplicationRecord
   include Turbo::Broadcastable
   # == Callbacks ====================================================
   before_create :set_status_tracking_slug
-  after_update_commit -> { broadcast_replace_later_to 'orders', partial: 'orders/current_status', locals: { order: self } }
+  after_create_commit lambda {
+                        broadcast_prepend_later_to 'orders', partial: 'admin/orders/order_row', locals: { order: self }, target: 'admin_orders_table'
+                      }
+  after_update_commit lambda {
+                        broadcast_replace_later_to 'orders', partial: 'orders/current_status', locals: { order: self }, target: "#order_#{id}_status"
+                      }
+  after_update_commit lambda {
+                        broadcast_replace_later_to 'orders', partial: 'admin/orders/order_row', locals: { order: self },
+                                                             target: "admin_order_#{id}_row"
+                      }
 
   # == Validations ==================================================
   validates :first_name, presence: true
