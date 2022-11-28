@@ -8,7 +8,7 @@ class Order < ApplicationRecord
                         broadcast_prepend_later_to 'orders', partial: 'admin/orders/order_row', locals: { order: self }, target: 'admin_orders_table'
                       }
   after_update_commit lambda {
-                        broadcast_replace_later_to 'orders', partial: 'orders/current_status', locals: { order: self }, target: "#order_#{id}_status"
+                        broadcast_replace_to 'orders', partial: 'orders/current_status', locals: { order: self }, target: "order_#{id}_status"
                       }
   after_update_commit lambda {
                         broadcast_replace_later_to 'orders', partial: 'admin/orders/order_row', locals: { order: self },
@@ -28,6 +28,18 @@ class Order < ApplicationRecord
   has_many :order_entries, inverse_of: :order
 
   # == Methods =======================================================
+  def completed?
+    status == ::Orders::Statuses::COMPLETED
+  end
+
+  def confirmed_payment?
+    status == ::Orders::Statuses::CONFIRMED_PAYMENT
+  end
+
+  def in_progress?
+    status == ::Orders::Statuses::IN_PROGRESS
+  end
+
   def new?
     status == ::Orders::Statuses::NEW
   end

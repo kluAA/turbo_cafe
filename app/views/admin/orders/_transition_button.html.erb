@@ -1,0 +1,9 @@
+<% if order.confirmed_payment? %>
+  <%= button_to 'Set In Progress', transition_in_progress_admin_order_path(order), method: :post, class: 'bg-green-600 p-2 rounded-sm hover:opacity-70' %>
+<% elsif order.in_progress? %>
+  <%= button_to 'Complete Order', transition_completed_admin_order_path(order), method: :post, class: 'bg-sky-600 p-2 rounded-sm hover:opacity-70' %>
+<% elsif order.completed? %>
+  <div class="text-lg font-bold">Status: Complete</div>
+<% elsif order.new? %>
+  <div class="text-lg font-bold">Status: New</div>
+<% end %>
