@@ -39,8 +39,8 @@ ActiveRecord::Base.transaction do
                                description: 'Refreshing and light mangoey goodness')
 
   tropical_refresher = Special.create!(name: 'Tropical Refresher Combo', category: specials, price_cents: 1_000, tax_rate: 0.07,
-                                       description: 'Roasted chicken sandwich with lemonade and mango pudding')
-  SpecialItem.create!(special: tropical_refresher, item: roasted_chicken_sandwich)
+                                       description: 'The perfect tropical meal at an amazing value')
   SpecialItem.create!(special: tropical_refresher, item: lemonade)
+  SpecialItem.create!(special: tropical_refresher, item: roasted_chicken_sandwich)
   SpecialItem.create!(special: tropical_refresher, item: mango_pudding)
 end

@@ -3,7 +3,13 @@
 class OrderEntriesController < ApplicationController
   def create
     # add error handling later
-    @order_entry = ::OrderEntries::CreateService.new(item_id: create_params[:item_id], order_id: create_params[:order_id], quantity: 1).call
+    @order_entry =
+      ::OrderEntries::CreateService.new(
+        item_id: create_params[:item_id],
+        order_id: create_params[:order_id],
+        quantity: 1,
+        special_id: create_params[:special_id]
+      ).call
 
     pricing_struct = recalculate_price(order_id: @order_entry.order_id)
     respond_to do |format|
@@ -37,6 +43,6 @@ class OrderEntriesController < ApplicationController
   end
 
   def create_params
-    params.permit(:item_id, :order_id)
+    params.permit(:item_id, :order_id, :special_id)
   end
 end

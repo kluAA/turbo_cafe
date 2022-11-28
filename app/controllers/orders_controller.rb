@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
   def edit
     @order = current_order
     @order_entries = current_order.order_entries.includes(:item)
+    @specials = Special.includes(:category, :items).where(category: { name: 'specials' })
     @drinks = Item.includes(:category).where(category: { name: 'drinks' })
     @sandwiches = Item.includes(:category).where(category: { name: 'sandwiches' })
     @desserts = Item.includes(:category).where(category: { name: 'desserts' })

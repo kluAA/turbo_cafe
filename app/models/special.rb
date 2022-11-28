@@ -7,6 +7,7 @@ class Special < ApplicationRecord
   # == Validations ==================================================
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
+  monetize :price_cents, numericality: { greater_than_or_equal_to: 0 }
 
   # == Associations ==================================================
   belongs_to :category, inverse_of: :specials

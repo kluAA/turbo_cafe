@@ -17,6 +17,7 @@ end
 # Table name: order_entries
 #
 #  id                  :bigint           not null, primary key
+#  name                :string
 #  quantity            :integer          not null
 #  subtotal_cents      :integer          default(0), not null
 #  subtotal_currency   :string           default("USD"), not null

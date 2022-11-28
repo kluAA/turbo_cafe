@@ -1,0 +1,22 @@
+<% specials.each do |special| %>
+  <div>
+    <div class="flex flex-row items-baseline">
+      <div class="text-white text-lg font-bold">
+        <span><%= special.name %></span>
+        <span class="text-base text-green-400">($<%= special.price %>)</span>
+      </div>
+      <%= button_to '+', order_entries_path(order_id: order.id, special_id: special.id), method: :post, class: 'text-white px-2 ml-2 bg-sky-600 rounded-sm' %>
+    </div>
+    <p class="text-slate-200 text-sm italic ml-1"><%= special.description %></p>
+    <p class="text-slate-200 text-sm ml-1">
+      <span class="text-green-400 font-bold">$<%= SpecialsHelper.discount_value(special: special, items: special.items) %></span>
+      <span>off original base price!</span>
+    </p>
+    <ul class="text-slate-300 text-xs list-disc">
+      <div class="ml-1">Contains:</div>
+      <% special.items.each do |item| %>
+        <li class="ml-6 italic"><%= item.name %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

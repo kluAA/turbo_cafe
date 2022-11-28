@@ -96,6 +96,12 @@ Metrics/ModuleLength:
   Exclude:
     - 'spec/**/*.rb'
 
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
 Naming/InclusiveLanguage:
   Enabled: true
   CheckStrings: true
@@ -188,5 +194,5 @@ Gemspec/DependencyVersion:
 Style/Documentation:
   Enabled: false
 
-Metrics/MethodLength:
+Style/OpenStructUse:
   Enabled: false
